@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.6.2;
 
-import "forge-std/Script.sol";
+import {Script, console} from "forge-std/Script.sol";
 import {PunchSwapV2Factory} from "../src/PunchSwapV2Factory.sol";
 import {PunchSwapV2Pair} from "../src/PunchSwapV2Pair.sol";
 
@@ -13,9 +13,7 @@ import {PunchSwapV2Pair} from "../src/PunchSwapV2Pair.sol";
 */
 contract PunchSwapV2FactoryVerifyInitCodePairHashScript is Script {
     function run() public view {
-        PunchSwapV2Factory instance = PunchSwapV2Factory(
-            address(0xc9cAE05d068Ee58e55b39369b3098Eb275F1De57)
-        );
+        PunchSwapV2Factory instance = PunchSwapV2Factory(address(0x0));
         console.log("PunchSwapV2Factory:      ", address(instance));
         console.log("PunchSwapV2Factory.INIT_CODE_PAIR_HASH:  ");
         bytes32 factoryHash = instance.INIT_CODE_PAIR_HASH();
@@ -27,8 +25,7 @@ contract PunchSwapV2FactoryVerifyInitCodePairHashScript is Script {
         console.logBytes32(pairHash);
 
         require(
-            factoryHash == pairHash,
-            "PunchSwapV2Factory.INIT_CODE_PAIR_HASH != PunchSwapV2Pair keccak256(bytecode)"
+            factoryHash == pairHash, "PunchSwapV2Factory.INIT_CODE_PAIR_HASH != PunchSwapV2Pair keccak256(bytecode)"
         );
 
         console.log("Code hashcode verified");

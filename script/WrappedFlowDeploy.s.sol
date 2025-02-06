@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import "forge-std/Script.sol";
+import {Script, console} from "forge-std/Script.sol";
 import {Consts} from "./Consts.sol";
 import {WrappedFlow} from "../src/utils/WrappedFlow.sol";
 

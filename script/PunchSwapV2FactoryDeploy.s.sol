@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.6.2;
 
-import "forge-std/Script.sol";
+import {Script, console} from "forge-std/Script.sol";
 import {PunchSwapV2Factory} from "../src/PunchSwapV2Factory.sol";
 import {PunchSwapV2Pair} from "../src/PunchSwapV2Pair.sol";
 

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.11;
 
-import "forge-std/Script.sol";
+import {Script, console} from "forge-std/Script.sol";
 import {Consts} from "./Consts.sol";
 import {Multicall3} from "../src/utils/Multicall3.sol";
 
