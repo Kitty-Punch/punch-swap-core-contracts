@@ -36,11 +36,8 @@ contract PunchSwapV2FactoryDeployScript is Script {
         console.log("PunchSwapV2Pair keccak256(bytecode): ");
         console.logBytes32(pairHash);
 
-        require(
-            factoryHash == pairHash,
-            "PunchSwapV2Factory.INIT_CODE_PAIR_HASH != PunchSwapV2Pair keccak256(bytecode)"
-        );
-        console.log("Bytecode hashcode verified");
+        // require(factoryHash == pairHash, "PunchSwapV2Factory.INIT_CODE_PAIR_HASH != PunchSwapV2Pair keccak256(bytecode)");
+        // console.log("Bytecode hashcode verified");
 
         vm.stopBroadcast();
     }

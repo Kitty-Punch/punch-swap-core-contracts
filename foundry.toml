@@ -1,9 +1,12 @@
 [profile.default]
 src = "src"
-out = "out"
 libs = ["lib"]
+solc = "0.8.18"
 
 ffi = true     # to enable vyperDeployer calling vyper compiler
+fallback_oz = true
+is_system = false # Note: NonceHolder and the ContractDeployer system contracts can only be called with a special is_system flag as true
+mode = "3"
 
 # Update Slither/Mythrill config files and GH actions when you update the dependencies:
 remappings = [
@@ -16,6 +19,10 @@ OWNER = "${OWNER}"
 ALLOW_LIST_ADDRESSES = "${ALLOW_LIST_ADDRESSES}"
 PK_ACCOUNT = "${PK_ACCOUNT}"
 
+[etherscan]
+abstractTestnet = { chain = "11124", url = "https://api-sepolia.abscan.org/api", key = "TACK2D1RGYX9U7MC31SZWWQ7FCWRYQ96AD"}
+abstractMainnet = { chain = "2741", url = "https://api.abscan.org/api", key = ""}
+
 [rpc_endpoints]
 eth_mainnet = "${ETH_MAINNET_RPC_URL}"
 bsc_mainnet = "${BSC_MAINNET_RPC_URL}"
@@ -26,6 +33,7 @@ avax_mainnet = "${AVAX_MAINNET_RPC_URL}"
 ftm_mainnet = "${FTM_MAINNET_RPC_URL}"
 base_mainnet = "${BASE_MAINNET_RPC_URL}"
 zksync_mainnet = "${ZKSYNC_MAINNET_RPC_URL}"
+abs_mainnet = "${ABS_MAINNET_RPC_URL}"
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
 
