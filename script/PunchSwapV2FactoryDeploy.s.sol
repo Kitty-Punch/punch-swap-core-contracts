@@ -18,27 +18,41 @@ contract PunchSwapV2FactoryDeployScript is Script {
     function run() public {
         uint256 deployerPrivateKey = vm.envUint(PARAM_PK_ACCOUNT);
         address _owner = vm.envAddress(PARAM_OWNER);
-        address _feeTo = _owner;
         console.log("Owner address:             ", _owner);
 
         console.log("Starting script: broadcasting");
         vm.startBroadcast(deployerPrivateKey);
 
-        PunchSwapV2Factory instance = new PunchSwapV2Factory(_feeTo);
+        PunchSwapV2Factory instance = new PunchSwapV2Factory(_owner);
 
         console.log("PunchSwapV2Factory:    ", address(instance));
-        console.log("PunchSwapV2Factory.INIT_CODE_PAIR_HASH:  ");
-        bytes32 factoryHash = instance.INIT_CODE_PAIR_HASH();
-        console.logBytes32(factoryHash);
 
-        bytes memory bytecode = type(PunchSwapV2Pair).creationCode;
-        bytes32 pairHash = keccak256(bytecode);
-        console.log("PunchSwapV2Pair keccak256(bytecode): ");
-        console.logBytes32(pairHash);
+        bytes32 bytecodeHash = _getBytecodeHash();
+        console.log("PunchSwapV2Factory bytecodeHash: ");
+        console.logBytes32(bytecodeHash);
 
-        // require(factoryHash == pairHash, "PunchSwapV2Factory.INIT_CODE_PAIR_HASH != PunchSwapV2Pair keccak256(bytecode)");
-        // console.log("Bytecode hashcode verified");
+
+        /*bytes32 salt = 0x0000000000000000000000000000000000000001;
+        
+        ISystemContractDeployer deployer = ISystemContractDeployer(
+            address(0x0000000000000000000000000000000000008006)
+        );
+        address addr = deployer.getNewAddressCreate2(
+            address(this),
+            salt,
+            bytecodeHash,
+            ""
+        );
+        */
 
         vm.stopBroadcast();
+    }
+
+    function _getBytecodeHash() internal returns (bytes32) {
+        string memory artifact = vm.readFile(
+            "zkout/PunchSwapV2Factory.sol/PunchSwapV2Factory.json"
+        );
+        bytes32 bytecodeHash = vm.parseJsonBytes32(artifact, ".hash");
+        return bytecodeHash;
     }
 }

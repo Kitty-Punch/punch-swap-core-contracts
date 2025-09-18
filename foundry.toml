@@ -1,12 +1,24 @@
 [profile.default]
 src = "src"
 libs = ["lib"]
-solc = "0.8.18"
+solc = "0.8.28"
+optimizer = true
+optimizer_runs = 200
+via_ir = false
+evm_version = "paris"
 
 ffi = true     # to enable vyperDeployer calling vyper compiler
 fallback_oz = true
 is_system = false # Note: NonceHolder and the ContractDeployer system contracts can only be called with a special is_system flag as true
 mode = "3"
+
+fs_permissions = [{ access = "read", path = "./zkout/PunchSwapV2Factory.sol/PunchSwapV2Factory.json"}]
+
+[profile.default.zksync]
+zksolc = "1.5.15"
+enable_eravm_extensions = true # Note: System contract calls (NonceHolder and ContractDeployer) can only be called with this set to true
+
+
 
 # Update Slither/Mythrill config files and GH actions when you update the dependencies:
 remappings = [
@@ -19,9 +31,6 @@ OWNER = "${OWNER}"
 ALLOW_LIST_ADDRESSES = "${ALLOW_LIST_ADDRESSES}"
 PK_ACCOUNT = "${PK_ACCOUNT}"
 
-[etherscan]
-abstractTestnet = { chain = "11124", url = "https://api-sepolia.abscan.org/api", key = "TACK2D1RGYX9U7MC31SZWWQ7FCWRYQ96AD"}
-abstractMainnet = { chain = "2741", url = "https://api.abscan.org/api", key = ""}
 
 [rpc_endpoints]
 eth_mainnet = "${ETH_MAINNET_RPC_URL}"
@@ -34,6 +43,7 @@ ftm_mainnet = "${FTM_MAINNET_RPC_URL}"
 base_mainnet = "${BASE_MAINNET_RPC_URL}"
 zksync_mainnet = "${ZKSYNC_MAINNET_RPC_URL}"
 abs_mainnet = "${ABS_MAINNET_RPC_URL}"
+abs_testnet = "https://api.testnet.abs.xyz"
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
 
