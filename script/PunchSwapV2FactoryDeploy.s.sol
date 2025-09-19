@@ -17,7 +17,7 @@ contract PunchSwapV2FactoryDeployScript is Script {
 
     function run() public {
         uint256 deployerPrivateKey = vm.envUint(PARAM_PK_ACCOUNT);
-        address _owner = vm.envAddress(PARAM_OWNER);
+        address _owner = address(0);
         console.log("Owner address:             ", _owner);
 
         console.log("Starting script: broadcasting");
@@ -28,29 +28,15 @@ contract PunchSwapV2FactoryDeployScript is Script {
         console.log("PunchSwapV2Factory:    ", address(instance));
 
         bytes32 bytecodeHash = _getBytecodeHash();
-        console.log("PunchSwapV2Factory bytecodeHash: ");
+        console.log("PunchSwapV2Pair bytecodeHash: ");
         console.logBytes32(bytecodeHash);
-
-
-        /*bytes32 salt = 0x0000000000000000000000000000000000000001;
-        
-        ISystemContractDeployer deployer = ISystemContractDeployer(
-            address(0x0000000000000000000000000000000000008006)
-        );
-        address addr = deployer.getNewAddressCreate2(
-            address(this),
-            salt,
-            bytecodeHash,
-            ""
-        );
-        */
 
         vm.stopBroadcast();
     }
 
     function _getBytecodeHash() internal returns (bytes32) {
         string memory artifact = vm.readFile(
-            "zkout/PunchSwapV2Factory.sol/PunchSwapV2Factory.json"
+            "zkout/PunchSwapV2Pair.sol/PunchSwapV2Pair.json"
         );
         bytes32 bytecodeHash = vm.parseJsonBytes32(artifact, ".hash");
         return bytecodeHash;
